@@ -1,0 +1,243 @@
+/* Các thiết lập cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f8f9fb;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header cố định trên cùng */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 16px;
+  height: 56px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  font-weight: 600;
+  font-size: 18px;
+}
+.menu-icon, .toggle-icon {
+  font-size: 20px;
+  cursor: pointer;
+  display: none; /* Chỉ hiện nút menu trên mobile */
+}
+
+/* Bố cục container */
+.container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  height: calc(100vh - 56px);
+}
+
+/* Cột trái – Danh sách Sổ tay */
+.left-panel {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+}
+.panel-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+#newNotebookBtn {
+  background: #4285f4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+#newNotebookBtn:hover {
+  background: #3367d6;
+}
+.notebook-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+.notebook-list li {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background 0.2s;
+}
+.notebook-list li:hover {
+  background: #f1f3f6;
+}
+.notebook-list li.selected {
+  background: #e8f0fe;
+}
+
+/* Cột chính – Chat */
+.main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.chat {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+.message {
+  margin-bottom: 12px;
+  max-width: 60%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  line-height: 1.4;
+  position: relative;
+}
+.user {
+  background: #4285f4;
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+}
+.bot {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-bottom-left-radius: 0;
+}
+.user::before, .bot::before {
+  content: "";
+  position: absolute;
+}
+.user::before {
+  bottom: 0;
+  right: -6px;
+  border-top: 6px solid #4285f4;
+  border-left: 6px solid transparent;
+}
+.bot::before {
+  bottom: 0;
+  left: -6px;
+  border-top: 6px solid #fff;
+  border-right: 6px solid transparent;
+}
+.welcome-text {
+  margin-top: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+.input-box {
+  border-top: 1px solid #e5e5e5;
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+}
+.input-box input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+.input-box button {
+  background: #4285f4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.input-box button:hover {
+  background: #3367d6;
+}
+
+/* Cột phải – Sources */
+.right-panel {
+  width: 280px;
+  background: #fff;
+  border-left: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+.right-panel h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.drop-zone {
+  flex: 0;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  color: #777;
+  margin-bottom: 10px;
+}
+.source-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+.source-list li {
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* Responsive: Ẩn / Trượt các panel khi màn hình nhỏ */
+@media (max-width: 900px) {
+  .left-panel {
+    position: absolute;
+    left: -240px;
+    top: 56px;
+    z-index: 10;
+    height: calc(100vh - 56px);
+    transition: left 0.3s;
+  }
+  .left-panel.open {
+    left: 0;
+  }
+  .right-panel {
+    position: absolute;
+    right: -280px;
+    top: 56px;
+    z-index: 10;
+    height: calc(100vh - 56px);
+    transition: right 0.3s;
+  }
+  .right-panel.open {
+    right: 0;
+  }
+  .menu-icon, .toggle-icon {
+    display: block;
+  }
+}
